@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rish="http://richfaces.org/rich">
+
+
+    <h:head> 
+         <h:outputStylesheet library="css" name="style_main.css"  />
+    </h:head>
+
+    <h:body>
+        <ui:composition>
+            <ui:composition template="/templates/library_template.xhtml">
+
+                <ui:define name="content">
+
+                    <div class="empl_div">
+                        <div class="empl_div_1">
+                            <h:form id="empl_div1_1" class="empl_div1_1" rendered="#{employeeController.getTaskByTaskIDFromDB() eq 'show'}">                         
+
+                                <div>
+                                    #{msg.empl_dear}, #{employeeController.getUser().login}.
+                                    #{msg.empl_message}:
+                                    <strong align="center">#{employeeController.getCurrentTask().taskName}</strong>
+                                </div>
+
+                                <div class="empl_taskDiscr"> #{employeeController.getCurrentTask().discription}</div>
+
+                                <table>
+                                    <tr>
+                                        <td>#{msg.empl_date_start} </td>
+                                        <td style="color: #E93600;">#{employeeController.getFormatter().format(employeeController.getCurrentTask().startDate)}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>#{msg.empl_date_end} </td>
+                                        <td style="color: #E93600;">#{employeeController.getFormatter().format(employeeController.getCurrentTask().endDate)}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>#{msg.empl_status} </td>
+                                        <td>#{employeeController.getCurrentTask().status}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>#{msg.empl_progress} </td>
+                                        <td>#{employeeController.getCurrentTask().taskProgress} %</td>
+                                    </tr>
+                                </table>
+
+
+                            </h:form>
+
+                        </div>
+
+                        <div class="empl_div_2">
+                            <h:form>
+                                <h:commandButton actionListener="#{employeeController.updateTaskStatusToPerfomed()}" value="#{msg.empl_butt_start_task}" styleClass="search_button3">
+                                    <f:ajax event="click" execute="@this" render="empl_div1_1"/>
+                                </h:commandButton>
+
+                                <h:commandButton actionListener="#{employeeController.updateTaskStatusToCompleted()}" value="#{msg.empl_butt_end_task}" styleClass="search_button3">
+                                    <f:ajax event="click" execute="@this" render="empl_div1_1"/> 
+                                </h:commandButton>
+
+                                <h:panelGroup>
+                                    <div id="progr" align="center">
+                                        <br/>
+                                        <div style="font-style: italic; font-size: 10pt; color: #ffffff;"><h7>Введіть ваш прогрес у завданні</h7></div>
+                                        <h:inputText id="progressNum" value="#{employeeController.currentTaskProgressToUpdate}" class="progressNum">
+                                            <f:ajax event="keyup" render="@this"/>
+                                        </h:inputText>
+                                    </div>                                  
+
+                                    <h:commandButton actionListener="#{employeeController.updateTaskProgress()}" value="#{msg.empl_butt_change_progress}" styleClass="search_button3">
+                                        <f:ajax event="click" execute="progr" render="empl_div1_1"/>
+                                    </h:commandButton>
+                                </h:panelGroup>
+                                
+                                <h:panelGroup>
+                                    <div id="inputDelStart" align="center">
+                                        <br/>
+                                        <div style="font-style: italic; font-size: 10pt; color: #ffffff;"><h7>Виберіть дату переносу</h7></div>
+                                        <rish:calendar value="#{employeeController.currentDelayEndDate}" datePattern="dd/MMM/yyyy" locale="en"/>                                        
+                                    </div>  
+                                    <h:commandButton actionListener="#{employeeController.sendMessagePMForDelayTaskEnd()}" value="#{msg.empl_butt_change_task_date}" styleClass="search_button3">
+
+                                    </h:commandButton>
+
+                                </h:panelGroup>
+                            </h:form>
+                        </div>
+
+                    </div>
+                </ui:define>
+
+            </ui:composition>
+        </ui:composition>
+    </h:body>
+
+</html>
+
+

@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <h:head>     
+         <h:outputStylesheet library="css" name="style_main.css"  />
+    </h:head>
+
+    <h:body>
+        <ui:composition template="/pmMainPage.xhtml">
+            <ui:define name="content">
+
+                <h:panelGroup class="pmCreate_div"> 
+                    <ui:insert name="content1" >
+                        <ui:include src="/templates/pmButtons.xhtml"/>
+                    </ui:insert>                     
+                    
+                    <div class="pmCreateAll_div">
+                        
+                        <div class="cancelDiv"> 
+                            <h:outputLink  value="pmMainPage.xhtml?faces-redirect=true" styleClass="title">
+                                <f:param name="projectID" value="#{pmController.currentProjectID}"/>
+                            </h:outputLink> 
+                        </div>
+
+                        <h:form id="content_div2" class="content_div2">
+                            <table >
+                                <tr>
+                                    <td> Назва фази:</td>
+                                    <td>
+                                        <h:inputText id="phaseName" value="#{pmController.getNewPhase().phaseName}" required="true" requiredMessage="phaseName!!!">
+                                            <f:ajax event="change" render="phName"/>
+                                        </h:inputText>
+                                        <td class="td_style">
+                                            <h:message id="phName" for="phaseName"/>
+                                        </td>
+                                    </td>                
+                                </tr>
+
+                                <tr>
+                                    <td> Опис фази:</td>
+                                    <td>
+                                        <h:inputText id="phaseDiscription" value="#{pmController.getNewPhase().discription}">                                            
+                                        </h:inputText>                                        
+                                    </td>                
+                                </tr>
+
+                                <tr>
+                                    <td> Попередня фаза: </td>
+                                    <td> 
+                                        <h:panelGroup id="allPhasesForm">
+                                            <h:form>
+                                                <h:selectOneMenu styleClass="search_type_dropdown" value="#{pmController.currentPhase}" valueChangeListener="#{pmController.phasesControllerChanged}">
+                                                    <f:selectItems value="#{pmController.allPhases}" />
+                                                    <f:ajax event="change" render="@this"/>
+                                                </h:selectOneMenu>
+                                            </h:form>
+                                        </h:panelGroup>
+                                    </td>              
+                                </tr>      
+
+                                <tr>
+                                    <td >
+                                        <h:commandButton action="#{pmController.createPhase()}" value="#{msg.add_butt}" styleClass="search_button">                                           
+                                       <f:param name="projectID" value="#{pmController.currentProjectID}"/>  
+                                        </h:commandButton>
+                                    </td>                
+
+                                </tr> 
+                            </table>
+                        </h:form>
+                    </div>
+                </h:panelGroup>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+
+</html>
+
+

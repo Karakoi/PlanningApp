@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rish="http://richfaces.org/rich">
+
+
+    <h:head>     
+        <h:outputStylesheet library="css" name="style_main.css"  />
+    </h:head>
+
+    <h:body>
+        <ui:composition template="/pmMainPage.xhtml">
+            <ui:define name="content">
+<f:param name="projectID" value="#{pmController.currentProjectID}"/>  
+
+                <h:panelGroup class="pmCreate_div"> 
+                    <ui:insert name="content1">
+                        <ui:include src="/templates/pmButtons.xhtml"/>
+                    </ui:insert>
+                    
+                    <div class="pmCreateAll_div">
+
+                        <div class="cancelDiv"> 
+                            <h:outputLink  value="pmMainPage.xhtml?faces-redirect=true" styleClass="title">
+                                <f:param name="projectID" value="#{pmController.currentProjectID}"/>                                
+                            </h:outputLink> 
+                        </div>
+
+                        <h:form class="content_div2">
+                            <table>
+
+                                <tr>
+                                    <td> Назва задачі:</td>
+                                    <td>
+                                        <h:inputText id="taskName" value="#{pmController.getTask().taskName}" required="true" requiredMessage="taskName!!!">
+                                            <f:ajax event="change" render="tName"/>
+                                        </h:inputText>
+                                        <td class="td_style">
+                                            <h:message id="tName" for="taskName"/>
+                                        </td>
+                                    </td>                
+                                </tr>
+
+                                <tr>
+                                    <td> Постановка задачі:</td>
+                                    <td>
+                                        <h:inputText id="taskDiscription" value="#{pmController.getTask().discription}" required="true" requiredMessage="taskDiscription!!!">
+                                            <f:ajax event="change" render="tDisc"/>
+                                        </h:inputText>
+                                        <td class="td_style">
+                                            <h:message id="tDisc" for="taskDiscription"/>
+                                        </td>
+                                    </td>                
+                                </tr>
+
+                                <tr>
+                                    <td> Дата початку:</td>
+                                    <td>
+                                        <rish:calendar value="#{pmController.getTask().startDate}" datePattern="dd/MMM/yyyy" locale="en">
+                                        </rish:calendar>
+                                    </td>                
+                                </tr>
+
+                                <tr>
+                                    <td> Дата кінцева:</td>
+                                    <td>
+                                        <rish:calendar value="#{pmController.getTask().endDate}" datePattern="dd/MMM/yyyy" locale="en">
+                                        </rish:calendar>
+                                    </td>                
+                                </tr>
+
+                                <tr>
+                                    <td> Необхідна кваліфікація для виконання:</td>
+                                    <td>
+                                        <h:selectOneMenu id="qualificationMenu" value="#{pmController.currentQualification}" valueChangeListener="#{pmController.qualificationsControllerChanged}">
+                                            <f:selectItems value="#{qualificationController.qualificationList}" />
+                                            <f:ajax event="change" render="@this"/>
+                                        </h:selectOneMenu>
+                                    </td>              
+                                </tr>
+
+                                <tr>
+                                    <td> Фаза, до якої належить дана задача: </td>
+                                    <td> 
+                                        <h:panelGroup id="allPhasesForm2">
+                                            <h:form>
+                                                <h:selectOneMenu styleClass="search_type_dropdown" value="#{pmController.currentPhase}" valueChangeListener="#{pmController.phasesControllerChanged}">
+                                                    <f:selectItems value="#{pmController.allPhasesWithoutNull}" />
+                                                    <f:ajax event="change" render="@this"/>
+                                                </h:selectOneMenu>
+                                            </h:form>
+                                        </h:panelGroup>
+                                    </td>              
+                                </tr>      
+
+                                <tr>
+                                    <td>
+                                        <h:commandButton action="#{pmController.createTask()}" value="#{msg.add_butt}" styleClass="search_button"/>
+                                    </td>                                    
+                                </tr>
+                            </table>
+                        </h:form>
+                    </div>
+                </h:panelGroup>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+
+</html>
+
+

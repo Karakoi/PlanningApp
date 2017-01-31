@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <h:head>     
+        <h:outputStylesheet library="css" name="style_main.css"  />
+    </h:head>
+
+    <h:body>
+        <ui:composition template="/templates/library_template.xhtml">
+
+            <ui:define name="content">
+
+                <div align="center">
+
+                    <h:panelGroup class="adminCreate_div" layout="block">        
+                        <h:form id="adminCreateEmpl_div" class="adminCreateEmpl_div">
+
+                            <div class="cancelDiv">  
+                                <h:outputLink  value="main.xhtml?faces-redirect=true" />
+                            </div>
+                            <table style="margin-left: 50px;">
+
+                                <tr>
+                                    <td ><span style="color:red;">*</span> #{msg.input_firstName}</td>
+                                    <td >
+                                        <h:inputText id="firstName2" value="#{adminController.newEmpl().firstName}" required="true" requiredMessage="#{msg.error_firstName}">
+                                            <f:ajax event="change" render="fn2"/>
+                                        </h:inputText>
+                                        <td>
+                                            <h:message id="fn2" for="firstName2" styleClass="error"/>
+                                        </td>
+                                    </td> 
+
+                                </tr>            
+
+                                <tr >
+                                    <td ><span style="color:red;">*</span> #{msg.input_lastName}</td>
+                                    <td >
+                                        <h:inputText id="lastName2" value="#{adminController.newEmpl().lastName}" required="true" requiredMessage="#{msg.error_lastName}">
+                                            <f:ajax render="ln2"/>
+                                        </h:inputText>
+                                        <td>
+                                            <h:message id="ln2" for="lastName2" styleClass="error"/>
+                                        </td>
+                                    </td>              
+                                </tr>
+
+                                <tr >
+                                    <td><span style="color:red;">*</span> #{msg.input_age}</td>
+                                    <td >
+                                        <h:inputText id="age2" value="#{adminController.newEmpl().age}" required="true" requiredMessage="#{msg.error_age}">
+                                            <f:ajax render="a2"/>
+                                        </h:inputText>
+                                        <td>
+                                            <h:message id="a2" for="age2" styleClass="error"/>
+                                        </td>
+                                    </td>              
+                                </tr>
+
+                                <tr >
+                                    <td><span style="color:red;">*</span> #{msg.input_email}</td>
+                                    <td >
+                                        <h:inputText id="email2" value="#{adminController.newEmpl().email}" required="true" requiredMessage="#{msg.error_email}">
+                                            <f:ajax render="e2"/>
+                                        </h:inputText>
+                                        <td>
+                                            <h:message id="e2" for="email2" styleClass="error"/>
+                                        </td>
+                                    </td>              
+                                </tr>
+
+                                <tr >
+                                    <td ><span style="color:red;">*</span> #{msg.input_address}</td>
+                                    <td>
+                                        <h:inputText id="address2" value="#{adminController.newEmpl().address}" required="true" requiredMessage="#{msg.error_address}">
+                                            <f:ajax render="adr2"/>
+                                        </h:inputText>
+                                        <td >
+                                            <h:message id="adr2" for="address2" styleClass="error"/>
+                                        </td>
+                                    </td>              
+                                </tr>
+
+                                <tr >
+                                    <td ><span style="color:red;">*</span> #{msg.input_phone}</td>
+                                    <td >
+                                        <h:inputText id="phone2" value="#{adminController.newEmpl().phone}" required="true" requiredMessage="#{msg.error_phone}">
+                                            <f:ajax render="ph2"/>
+                                        </h:inputText>
+                                        <td >
+                                            <h:message id="ph2" for="phone2" styleClass="error"/>
+                                        </td>
+                                    </td>              
+                                </tr>
+
+                                <tr >
+                                    <td ><span style="color:red;">*</span> Компанія</td>
+                                    <td>
+                                        <h:selectOneMenu value="#{adminController.currentCompany}" valueChangeListener="#{adminController.companiesControllerChanged}">
+                                            <f:selectItems value="#{adminController.allCompanies.entrySet()}" var="c"
+                                                           itemLabel="#{c.key.name} - Com.ID: #{c.value}" itemValue="#{c.value}"/>
+                                            <f:ajax event="change" render="@this"/>
+                                        </h:selectOneMenu>
+                                    </td>                
+                                </tr> 
+
+                                <tr>
+                                    <td><span style="color:red;">*</span> Кваліфікація</td>
+                                    <td>                                        
+                                        <h:selectOneMenu styleClass="search_type_dropdown" value="#{adminController.currentQualification}" valueChangeListener="#{adminController.qualificationControllerChanged}">
+                                            <f:selectItems value="#{qualificationController.qualificationList}" />
+                                            <f:ajax event="change" render="@this"/>
+                                        </h:selectOneMenu>
+                                    </td>              
+                                </tr> 
+
+                                <tr >
+                                    <td><span style="color:red;">*</span> #{msg.input_login}</td>
+                                    <td>
+                                        <h:inputText id="login2" value="#{adminController.newEmpl().login}" required="true" requiredMessage="#{msg.error_login}">
+                                            <f:ajax render="l2"/>
+                                        </h:inputText>
+                                        <td>
+                                            <h:message id="l2" for="login2" styleClass="error"/>
+                                        </td>
+                                    </td>              
+                                </tr>
+
+                                <tr >
+                                    <td ><span style="color:red;">*</span> #{msg.input_password}</td>
+                                    <td >
+                                        <h:inputSecret  id="password2" value="#{adminController.newEmpl().password}" required="true" redisplay="true" requiredMessage="#{msg.error_password}">
+                                            <f:ajax render="pass2"/>
+                                        </h:inputSecret>
+                                        <td >
+                                            <h:message id="pass2" for="password2" styleClass="error"/>
+                                        </td>
+                                    </td>
+                                </tr>
+
+                                <tr >                  
+                                    <td>
+                                        <h:commandButton value="#{msg.create_butt}" action="#{adminController.createEmloyee()}" styleClass="search_button"/>
+                                    </td>  
+                                </tr> 
+                            </table>
+                        </h:form>
+                    </h:panelGroup>
+                </div>  
+
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+
+</html>
+
+

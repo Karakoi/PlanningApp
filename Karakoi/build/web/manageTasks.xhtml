@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich">
+
+
+    <h:head>     
+        <h:outputStylesheet library="css" name="style_main.css"  />
+    </h:head>
+
+    <h:body>
+        <ui:composition template="/pmMainPage.xhtml">
+            <ui:define name="content">
+                <f:param name="projectID" value="#{pmController.currentProjectID}"/>  
+                <h:panelGroup class="pmCreate_div2"> 
+
+                    <div class="pmCreateAll_div2">
+
+                        <div class="cancelDiv"> 
+                            <h:outputLink  value="pmMainPage.xhtml?faces-redirect=true" styleClass="title">
+                                <f:param name="projectID" value="#{pmController.currentProjectID}"/>
+                            </h:outputLink> 
+                        </div>
+
+                        <div  class="scroller">
+                            <h:form id="content_div3" class="content_div3">
+
+                                <ui:repeat value="#{pmController.getAllTasksAndTheirBeforeTasks().entrySet()}" var="t" >
+
+                                    <h:outputLink id="linkLateDates" value="manageTasks.xhtml" class="linkLateDates"> 
+                                        <table class="table_taskList">
+                                            <tr class="tr_taskList">
+                                                <td width="50"> 
+                                                    <f:param name="taskId" value="#{t.key.getTaskId()}"/>
+                                                    TaskID: #{t.key.getTaskId()}                                                    
+                                                </td>
+                                                <td width="40">#{t.key.getTaskName()}</td> 
+                                                <td width="70">
+                                                    <h:outputText value="#{t.key.getStartDate()}" >
+                                                        <f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+                                                    </h:outputText>
+                                                </td> 
+                                                <td width="70">
+                                                    <h:outputText value="#{t.key.getEndDate()}" >
+                                                        <f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+                                                    </h:outputText>
+                                                </td> 
+                                                <td width="70">
+                                                    Before tasks: "#{t.value}" 
+                                                </td>
+                                            </tr>
+                                        </table>  
+                                    </h:outputLink>                                
+
+                                </ui:repeat>
+                            </h:form>
+                        </div>
+                        <h:panelGroup class="selLateDate">
+                            <h:form>
+                                <table>
+                                    <tr >                                   
+                                        <div style="text-align: center;">
+                                            <strong>Зміна дат для задачі №:
+                                                <span style="color: #ff0000;">#{request.getParameter("taskId")}</span>
+                                                #{pmController.setCurrentTask3(request.getParameter("taskId"))}                                                
+                                            </strong>
+                                        </div>                                   
+                                    </tr>
+                                    <tr>
+                                        <td width="200">
+                                            <div>Select Date of Late Start: </div>
+                                            <rich:calendar value="#{pmController.currentStartLateDate}" popup="false" datePattern="dd/MM/yyyy" locale="en"/> 
+
+                                        </td> 
+                                        <td width="200">
+                                            <div> Select Date of Late End: </div>
+                                            <rich:calendar value="#{pmController.currentEndLateDate}" popup="false" datePattern="dd/MM/yyyy" locale="en"/> 
+
+                                        </td>                                      
+                                    </tr>
+                                    <tr>
+
+                                    </tr>
+                                </table>
+                                <div style="text-align: center;">
+
+                                    <h:commandButton actionListener="#{pmController.updateLateDatesForCurrTask()}" value="#{msg.update_butt}" styleClass="search_button">                                                   
+
+                                    </h:commandButton>
+
+                                </div>
+                            </h:form>
+                        </h:panelGroup> 
+
+                    </div>
+                </h:panelGroup>
+
+
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+
+</html>
+
+

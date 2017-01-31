@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.1"
+              xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
+
+    <application>
+        <locale-config>
+            <default-locale>en</default-locale>
+        </locale-config>
+        <resource-bundle>
+            <base-name>netcracker.project.web.nls.messages</base-name>
+            <var>msg</var>
+        </resource-bundle>
+        
+        <el-resolver>
+            org.springframework.web.jsf.el.SpringBeanFacesELResolver
+        </el-resolver>
+    </application>
+    
+    <navigation-rule>
+        <from-view-id>/main.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>main</from-outcome>
+            <to-view-id>/main.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>exit</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/pages/content.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>main</from-outcome>
+            <to-view-id>/main.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>successLogin</from-outcome>
+            <to-view-id>/main.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>unsuccessLogin</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>registration</from-outcome>
+            <to-view-id>/registration.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/registration.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>successRegistration</from-outcome>
+            <to-view-id>/main.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>unsuccessRegistration</from-outcome>
+            <to-view-id>/registration.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/createEnquire.xhtml</from-view-id>        
+        <navigation-case>
+            <from-outcome>successEnquire</from-outcome>
+            <to-view-id>/main.xhtml</to-view-id>  
+            <redirect />          
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>unsuccessEnquire</from-outcome>
+            <to-view-id>/createEnquire.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/createEmployee.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>successEmployee</from-outcome>
+            <to-view-id>/main.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>unsuccessEmployee</from-outcome>
+            <to-view-id>/createEmployee.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/createProject.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>successProject</from-outcome>
+            <to-view-id>/main.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>unsuccessProject</from-outcome>
+            <to-view-id>/createProject.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/createCompany.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>successCompany</from-outcome>
+            <to-view-id>/main.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>unsuccessCompany</from-outcome>
+            <to-view-id>/createCompany.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/createPhase.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>successPhase</from-outcome>
+            <to-view-id>/pmMainPage.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>unsuccessPhase</from-outcome>
+            <to-view-id>/createPhase.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/createTask.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>unsuccessTask</from-outcome>
+            <to-view-id>/createTask.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>successTask</from-outcome>
+            <to-view-id>/pmMainPage.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/manageProject.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>successManageProject</from-outcome>
+            <to-view-id>/pmMainPage.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>unsuccessManageProject</from-outcome>
+            <to-view-id>/manageProject.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+</faces-config>

@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet library="css" name="style_main.css"  />
+    </h:head>
+    <h:body>
+        <ui:composition>
+
+            <div class="locales_div">
+                <div style="color: #ffffff; text-align: center; font-style: oblique;">#{msg.change_leanguage}:</div>                
+                <div class="locales">
+                    <h:form>
+
+                        <h:commandLink action="#{localeChanger.changeLocale('uk')}">
+                            <h:graphicImage library="images" name="uk.png" title="#{msg.ukrainian}" />
+                            <!--            <f:ajax render=":login_div :index_title" execute="@form" disabled="fn:contains(request.requestURL, 'main.xhtml')}"/>
+                                        <f:ajax render="@all" execute="@form" disabled="not fn:contains(request.requestURL, 'main.xhtml')}"/>-->
+
+
+                        </h:commandLink>
+
+                        <h:commandLink action="#{localeChanger.changeLocale('en')}">
+                            <h:graphicImage library="images" name="eng.png" title="#{msg.english}" />
+                            <!--            <f:ajax render=":login_div :index_title" execute="@form" disabled="fn:contains(request.requestURL, 'main.xhtml')}"/>
+                                        <f:ajax render="@all" execute="@form" disabled="not fn:contains(request.requestURL, 'main.xhtml')}"/>-->
+
+
+                        </h:commandLink>
+
+                        <h:commandLink action = "#{localeChanger.changeLocale('ru')}">
+                            <h:graphicImage library="images" name="rus.png" title="#{msg.russian}"/>
+                            <!--            <f:ajax render=":login_div :index_title" execute="@form" disabled="fn:contains(request.requestURL, 'main.xhtml')}"/>
+                                        <f:ajax render="@all" execute="@form" disabled="not fn:contains(request.requestURL, 'main.xhtml')}"/>-->
+
+                        </h:commandLink>
+
+
+                    </h:form>
+                </div>
+            </div>
+        </ui:composition>
+    </h:body>
+</html>
+

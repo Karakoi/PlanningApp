@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <h:head>     
+        <h:outputStylesheet library="css" name="style_main.css"  />
+    </h:head>
+
+    <h:body>
+        <ui:composition template="/templates/library_template.xhtml">
+
+            <ui:define name="content">
+
+                <div align="center">
+                    <h:panelGroup class="adminCreate_div" layout="block">        
+                        <h:form class="adminCreateEmpl_div">
+
+                            <div class="cancelDiv"> 
+                                 <h:outputLink  value="main.xhtml?faces-redirect=true" />                               
+                            </div>
+                            <table >
+
+                                <tr>
+                                    <td> Назва компанії:</td>
+                                    <td>
+                                        <h:inputText id="companyName" value="#{adminController.company.name}" required="true" requiredMessage="companyName!!!">
+                                            <f:ajax event="change" render="сName"/>
+                                        </h:inputText>
+                                        <td >
+                                            <h:message id="сName" for="companyName" class="error"/>
+                                        </td>
+                                    </td>                
+                                </tr>
+
+                                <tr>
+                                    <td> Адреса компанії:</td>
+                                    <td>
+                                        <h:inputText id="companyAddress" value="#{adminController.company.address}" required="true" requiredMessage="companyAddress!!!">
+                                            <f:ajax event="change" render="сAdr"/>
+                                        </h:inputText>
+                                        <td >
+                                            <h:message id="сAdr" for="companyAddress" class="error"/>
+                                        </td>
+                                    </td>                
+                                </tr>
+
+                                <tr>
+                                    <td> Телефон компанії:</td>
+                                    <td>
+                                        <h:inputText id="companyPhone" value="#{adminController.company.phone}" required="true" requiredMessage="companyPhone!!!">
+                                            <f:ajax event="change" render="сPhone"/>
+                                        </h:inputText>
+                                        <td >
+                                            <h:message id="сPhone" for="companyPhone" class="error"/>
+                                        </td>
+                                    </td>                
+                                </tr>
+
+                                <tr>
+                                    <td >
+                                        <h:commandButton action="#{adminController.createCompany()}" value="#{msg.add_butt}" class="search_button"/>
+                                        <f:ajax event="click" listener="#{adminController.getAllCompaniesFromDB()}" rendered=":adminCreateEmpl_div"/>
+                                    </td>  
+                                </tr> 
+                            </table>
+                        </h:form>
+                    </h:panelGroup>
+                </div>  
+
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+
+</html>
+
+

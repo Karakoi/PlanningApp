@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <h:head>     
+ <h:outputStylesheet library="css" name="style_main.css"  />
+    </h:head>
+
+    <h:body>
+        <ui:composition template="/templates/library_template.xhtml">
+
+            <ui:define name="content">
+
+                <div align="center">
+                    <h:panelGroup class="adminCreate_div" layout="block">        
+                        <h:form class="adminCreateEmpl_div">
+
+                            <div class="cancelDiv"> 
+                                <h:outputLink  value="pmMainPage.xhtml?faces-redirect=true" />                               
+                            </div>
+                            <div style="font-style: italic; margin-left: 15px;">#{msg.pm_messages_title}
+                            </div>
+                            <h:selectOneListbox id="listBox3" value="#{pmController.currentMessageID}" size="8" class="listBox3">
+                                <f:selectItems value="#{pmController.getAllMessages().entrySet()}" var="m"
+                                               itemLabel="Message №:#{m.key.get(0)} - EmployeeID: #{m.key.get(1)} want to delay task: #{m.key.get(2)} for date: #{m.value}" itemValue="#{m.key.get(0)}" />                                 
+                            </h:selectOneListbox>
+
+                            <h:commandButton actionListener="#{pmController.getAllNewMessageForPM()}" value="#{msg.update_butt}" styleClass="search_button">                                           
+                            </h:commandButton>
+                            <h:commandButton actionListener="#{pmController.checkMessage()}" value="#{msg.pm_butt_viewed}" styleClass="search_button">
+                            </h:commandButton>
+
+                        </h:form>
+                    </h:panelGroup>
+                </div>  
+
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+
+</html>
+
+

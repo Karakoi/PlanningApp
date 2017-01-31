@@ -1,0 +1,108 @@
+body {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  background-color: #eaeaea;
+  /*margin:100px;*/
+}
+.main {
+  background-color: #FFF;
+  width: 850px;
+  height:580px;
+  margin: 0 auto;
+  padding:20px;
+}
+.title {
+  color: #194C0C;
+  text-align:center;
+  font-size:18px;
+  font-weight:bold;
+}
+.mainTitle{
+  color: #055C1F;
+  /*#194C0C;*/
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+}
+
+.index_form{
+  padding-left:50px;
+  text-align: center;
+  padding: 20px;
+}
+
+.index_div{
+  width:350px;
+  border: 1px solid #eaeaea;
+  margin: 0 auto;
+  padding:10px;
+  height: 150px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.index_div p{
+  text-align: left;
+
+}
+
+.footer{
+  color:#cccccc;
+  text-align: center;
+  margin:50px;
+}
+
+.content{
+  height:330px;
+}
+
+.link {
+  width: 500px; /* Ширина слоя */
+  height: 70px; /* Высота слоя */
+  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #EB9D16), color-stop(1, #f05424) );
+  background:-moz-linear-gradient( center top, #EB9D16 5%, #f05424 100% );
+  /*background:#f05424;  Цвет фона */
+  border-radius: 100px;
+  text-align: center;
+  margin: 0 auto;
+  white-space: nowrap;
+  color: #ffffff;  
+}
+.link a {
+  display: block;   /*Ссылка как блочный элемент */
+
+  text-align: center;
+  /*vertical-align: middle;*/
+  /*line-height: 35px;*/
+  height: 100%;   
+  /*Высота ccилки на весь слой(див))*/ 
+  color: #ffffff;  
+}
+
+.link:hover {
+  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #2BC167), color-stop(1, #22c2a6) );
+  background:-moz-linear-gradient( center top, #2BC167 5%, #22c2a6 100% );
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#5cb811', endColorstr='#77d42a');
+  background-color:#306108;
+  cursor: pointer;
+}
+.link:active {
+  position:relative;
+  top:1px;
+  padding: 0% 10%;
+}
+
+.text {
+  /*padding: 20px 0%;*/
+  /*  min-height: 40px;
+    display: table;
+    vertical-align: middle*/
+  height: 5em;
+    line-height: 5em;
+    
+}
+
+
+

@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <h:head>     
+        <h:outputStylesheet library="css" name="style_main.css"  />
+    </h:head>
+
+    <h:body>   
+        <ui:composition template="/pmMainPage.xhtml">
+            <ui:define name="content">
+<f:param name="projectID" value="#{pmController.currentProjectID}"/>  
+
+                <h:panelGroup class="pmCreate_div"> 
+                    <ui:insert name="content1">
+                        <ui:include src="/templates/pmButtons.xhtml"/>
+                    </ui:insert> 
+                    <div class="pmCreateAll_div"> 
+
+                        <div class="cancelDiv"> 
+                            <h:outputLink value="pmMainPage.xhtml?faces-redirect=true" styleClass="title">
+                                <f:param name="projectID" value="#{pmController.currentProjectID}"/>
+                            </h:outputLink>
+                        </div>
+
+                        <h:form id="manageProjectForm" class="content_div2"> 
+                            <div class="content_div2_1">
+                                <table align="center">
+                                    <div align="center">
+                                        Встановіть відповідність: <br/>
+                                        Задача - Попередня задача 
+                                    </div>
+
+                                    <tr>
+                                        <td>
+                                            <h:form id="taskList">
+                                                <h:selectOneMenu styleClass="search_type_dropdown" value="#{pmController.currentTask}" valueChangeListener="#{pmController.tasksControllerChanged}">
+                                                    <f:selectItems value="#{pmController.getAllTasksWithoutNull().entrySet()}" var="t"
+                                                                   itemLabel="ID:#{t.key.taskId}, #{t.key.taskName}" itemValue="#{t.value}"/>
+                                                    <f:ajax event="change" render="@this"/>
+                                                </h:selectOneMenu>
+                                            </h:form>
+                                        </td>
+                                        <td>
+                                            <h:form id="beforeTaskList">
+                                                <h:selectOneMenu styleClass="search_type_dropdown" value="#{pmController.currentBeforeTask}" valueChangeListener="#{pmController.beforeTasksControllerChanged}">
+                                                    <f:selectItems value="#{pmController.getAllTasks().entrySet()}" var="t"
+                                                                   itemLabel="ID:#{t.key.taskId}, #{t.key.taskName}" itemValue="#{t.value}"/>
+                                                    <f:ajax event="change" render="@this"/>
+                                                </h:selectOneMenu>
+                                            </h:form>
+                                        </td>
+                                        <td>                                    
+                                            <h:commandButton actionListener="#{pmController.createRelationsTaskBeforeTask()}" value="#{msg.add_butt}">    
+                                            </h:commandButton>                                  
+
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <h:selectOneListbox id="listBox1" value="#{pmController.currentRelTaskBeforeTask}" size="8" class="listBox1">
+                                    <f:selectItems value="#{pmController.allRelTaskBeforeTask}" var="rel"
+                                                   itemLabel="ID:#{rel.id}: Task:#{rel.taskId} - Before Task:#{rel.beforeTaskId}" itemValue="#{rel.id}" />                                 
+                                </h:selectOneListbox>
+
+                                <div class="content_div2_but">
+                                    <table align="center">
+                                        <tr>
+                                            <td>
+                                                <h:commandButton actionListener="#{pmController.getAllRelTBTFromDB()}" value="#{msg.update_butt}">                                           
+                                                    <f:ajax event="click" execute="@this" rendered="listBox1"/>
+                                                </h:commandButton>
+                                            </td>
+                                            <td>
+                                                <h:commandButton actionListener="#{pmController.deleteRelTBTFromDB()}" value="#{msg.delete_butt}">                                           
+                                                    <f:ajax event="click" execute="@this" rendered="listBox1"/>
+                                                </h:commandButton>
+                                            </td>
+                                        </tr>                            
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="content_div2_2">
+                                <table align="center">
+                                    <div align="center">
+                                        Встановіть відповідність: <br/>
+                                        Задача - Працівник 
+                                    </div>
+
+                                    <tr>
+                                        <td>
+                                            <h:form id="taskList2">
+                                                <h:selectOneMenu  value="#{pmController.currentTask2}" valueChangeListener="#{pmController.tasksControllerChanged2}">
+                                                    <f:selectItems value="#{pmController.getAllTasksWithoutNull().entrySet()}" var="t"
+                                                                   itemLabel="ID:#{t.key.taskId}, #{t.key.taskName}-#{t.key.requiredQualification}" itemValue="#{t.value}"/>
+                                                    <f:ajax event="change" render="@this"/>
+                                                </h:selectOneMenu>
+                                            </h:form>
+                                        </td>
+                                        <td>
+                                            <h:form id="emplList">
+                                                <h:selectOneMenu value="#{pmController.currentEmployee}" valueChangeListener="#{pmController.employeesControllerChanged}">
+                                                    <f:selectItems value="#{pmController.getAllEmployees().entrySet()}" var="e"
+                                                                   itemLabel="Name:#{e.key.lastName}: #{e.key.qualification}" itemValue="#{e.value}"/>
+                                                    <f:ajax event="change" render="@this"/>
+                                                </h:selectOneMenu>
+                                            </h:form>                                           
+                                        </td>
+                                        <td>                                    
+                                            <h:commandButton actionListener="#{pmController.createRelationsTaskEmployee()}" value="#{msg.add_butt}">    
+                                            </h:commandButton>                                  
+
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <h:selectOneListbox id="listBox2" value="#{pmController.currentRelTaskEmployee}" size="8" class="listBox2">
+                                    <f:selectItems value="#{pmController.allRelTaskEmployee}" var="rel"
+                                                   itemLabel="Rel_ID:#{rel.id}: Task ID:#{rel.taskId} - Employee ID:#{rel.employeeId}" itemValue="#{rel.id}" />                                 
+                                </h:selectOneListbox>
+
+                                <div class="content_div2_but"> 
+                                    <table align="center">
+                                        <tr>
+                                            <td>
+                                                <h:commandButton actionListener="#{pmController.getAllRelTaskEmployeeFromDB()}" value="#{msg.update_butt}">                                           
+                                                    <f:ajax event="click" execute="@this" rendered="listBox2"/>
+                                                </h:commandButton>
+                                            </td>
+                                            <td>
+                                                <h:commandButton actionListener="#{pmController.deleteRelTaskEmployeeFromDB()}" value="#{msg.delete_butt}">                                           
+                                                    <f:ajax event="click" execute="@this" rendered="listBox2"/>
+                                                </h:commandButton>
+                                            </td>
+                                        </tr>                            
+                                    </table>
+                                </div>
+                            </div>
+                        </h:form>
+                    </div>
+                </h:panelGroup>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+
+</html>
+
+

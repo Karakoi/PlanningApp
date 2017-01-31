@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <h:head>     
+        <h:outputStylesheet library="css" name="style_main.css"  />
+    </h:head>
+
+    <h:body>
+        <ui:composition template="/templates/library_template.xhtml">
+
+            <ui:define name="content">
+
+                <div>      
+
+                    <h:panelGroup class="consumerCreate_div"> 
+                        <h:form class="consumerCreateEnq_div">  
+                            <div class="cancelDiv">
+                                <h:outputLink value="main.xhtml?faces-redirect=true" styleClass="title">
+                                </h:outputLink>
+                            </div>
+                            <table >
+                                <tr>
+                                    <td style="font-style: italic;">#{msg.empl_dear}, #{user.login}, #{msg.cons_message}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <h:inputTextarea  id="discription" value="#{user.enquire.discription}" required="true" 
+                                                          requiredMessage="Опишіть!!!" cols="120" rows="14">
+                                            <f:ajax event="change" render="disc"/>
+                                        </h:inputTextarea>                    
+                                        <td class="td_style">
+                                            <h:message id="disc" for="discription"/>
+                                        </td>
+                                    </td>                
+                                </tr>
+
+                                <tr>
+                                    <td >
+                                        <h:commandButton action="#{consumerController.createEnquire()}" value="#{msg.send_butt}" styleClass="search_button"/>                                                      
+                                    </td>   
+                                </tr> 
+
+                            </table>
+                        </h:form>
+                    </h:panelGroup> 
+
+                </div>
+
+
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+
+</html>
+
+

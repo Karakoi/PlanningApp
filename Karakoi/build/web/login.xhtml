@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view locale="#{localeChanger.currentLocale}">
+        <h:head>
+            <title>#{msg.welcome_title}</title>
+            <h:outputStylesheet library="css" name="style_login.css"  />
+            <h:outputScript library="js" name="scripts.js" target="head"/>
+        </h:head>
+        <h:body>
+
+            <div class="main">
+
+                <ui:include src="/templates/locales.xhtml"/>
+
+                <div class="content">
+                    <p class="title"><h:graphicImage width="400" library="images" name="main.jpg" /></p>
+                    <!--<div class="main_img"></div>-->
+                    <p class="title"><h:outputText id="login_title" value="#{msg.login_title}"/></p>
+                </div>
+
+
+                <h:panelGroup id="login_div" styleClass="login_div" layout="block" >
+                    <h:form styleClass="login_form" id="login_form">
+
+                        <table align="left" width="350">
+                            <tr>
+                                <td width="100" align="left"><span style="color:red;">*</span> #{msg.input_login}</td>
+                                <td width="200">
+                                    <h:inputText id="login" value="#{user.login}" required="true" requiredMessage="#{msg.login_required}">
+                                        <!--<f:ajax event="keyup" render=":loginError"/>-->
+                                    </h:inputText>
+                                </td>
+                                <td width="100" >
+                                    <div id="loading_wrapper">
+                                        <h:graphicImage library="images" name="ajax_loading.gif"/> 
+                                    </div>
+                                </td>
+<!--                                <td >
+                                    <div id="success1" style="display: none;">
+                                        <h:graphicImage library="images" name="success.jpg"/> 
+                                    </div>
+                                </td>-->
+                            </tr>
+
+                            <tr>
+                                <td align="left"><span style="color:red;">*</span> #{msg.input_password}</td>
+                                <td><h:inputSecret  id="password" value="#{user.password}" required="true" redisplay="true" requiredMessage="#{msg.password_required}">
+                                    </h:inputSecret>
+                                </td>
+                            </tr>
+
+                            <tr><br></br></tr>
+
+                            <tr>
+                                <td >
+                                   
+                                    <h:commandButton id="butt" action="#{user.login()}" value="#{msg.entry}" styleClass="login_button" onclick="return checkValue(this.form, #{msg.login_error});">
+                                        <f:ajax onevent="showProgress" execute="@form" render="@form" /> 
+                                         <!--<f:ajax onevent="showSuccess" execute="@form" render="@form" />-->
+                                    </h:commandButton>                                  
+                                </td>                
+
+                                <td >                                      
+                                    <h:commandButton action="#{navigationController.moveToRegistrationPage()}" value="#{msg.registration}" styleClass="login_button"/>
+                                </td>
+                            </tr> 
+
+                            <tr>
+                                <td colspan="3">
+                                    <h:message id="login_form_error" for="login_form"  styleClass="error"/>
+                                    <h:message id="login_error" for="login" styleClass="error"/>
+                                    <h:message id="password_error" for="password" styleClass="error"/>
+                                </td> 
+                                <td>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </h:form>
+                </h:panelGroup>
+            </div>
+            <h:messages globalOnly="true" styleClass="error"/>
+        </h:body>
+    </f:view>  
+</html>
+

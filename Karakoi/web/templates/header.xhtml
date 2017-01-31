@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet library="css" name="style_main.css"  />
+    </h:head>
+
+    <h:body>
+        <ui:composition>
+            <div class="header_img">
+                <h:graphicImage library="images" name="header2.jpg" >
+
+                    <div class="header_welcome">
+                        <h3>#{msg.welcome_title}, #{user.login}</h3>
+                    </div>
+
+                    <div class="header_locales">
+                        <ui:include src="/templates/locales.xhtml"/>
+                        <!--<p><h5>#msg.welcome},  #consumer.login}</h5></p>-->
+                    </div>
+                    <h:form class="header_logout">
+                        <div style="color: #ffffff; text-align: right;">#{msg.exit}</div>
+                        <h:commandLink  action="#{user.logout()}">
+                            <h:graphicImage library="images" name="exit.jpg" />
+                        </h:commandLink>
+                    </h:form>
+
+                </h:graphicImage>
+            </div>
+            <div class="search_div">
+
+                <h:form rendered="#{user.getRoleByLogin() eq 'Consumer'}">
+                    #{consumerController.setUser(user)}
+                    <div class="search_div_div1">
+                        <h:commandButton action="createEnquire.xhtml" value="#{msg.consumer_butt_new_enquire}" styleClass="search_button2"/>                              
+                    </div>
+
+                    <div class="search_div_div2">
+                        <h:commandButton action="#{consumerController.getEnquiresByStatus()}" value="#{msg.consumer_butt_search}" styleClass="search_button2">
+                            <f:ajax event="click" execute="@this" render=":consumerProjectForm"/>
+                        </h:commandButton> 
+                        <div class="search_div_div2_sel">
+                            Тип пошуку:
+                            <h:selectOneMenu styleClass="search_type_dropdown" value="#{consumerController.currentEnquireStatus}" valueChangeListener="#{consumerController.currentEnquireStatusChanged}">
+                                <f:selectItems value="#{enquireStatusController.statusList}" />
+                                <f:ajax event="change" render="@this"/>
+                            </h:selectOneMenu>
+                        </div>
+
+
+                    </div>
+                </h:form>
+
+                <h:form rendered="#{user.getRoleByLogin() eq 'Administrator'}">
+                    #{adminController.setUser(user)}
+                    <div class="search_div_div1">
+                        <h:commandButton action="#{adminController.getAllEnquiresFromDB()}" value="#{msg.admin_butt_show_enq_list}" styleClass="search_button2">    
+                            <f:ajax event="click" execute="@this" render=":adminProjectForm"/>
+                        </h:commandButton> 
+                    </div>
+                    <div class="search_div_div2">
+                        <h:commandButton action="createEmployee.xhtml" value="#{msg.admin_butt_add_empl}" styleClass="search_button2">               
+                        </h:commandButton> 
+                    </div>
+                    <div>
+                        <h:commandButton action="createCompany.xhtml" value="#{msg.admin_butt_add_company}" styleClass="search_button2">               
+                        </h:commandButton> 
+                    </div> 
+
+                </h:form>
+
+                <h:form rendered="#{user.getRoleByLogin() eq 'Employee' and user.getQulificationByLogin() eq 'Project Manager'}">                    
+                    #{pmController.setUser(user)}
+                    <h:commandButton action="#{pmController.getAllProjectsFromDB()}" value="#{msg.pm_butt_show_project_list}" styleClass="search_button2">    
+                        <f:ajax event="click" execute="@this" render=":pmForm"/>
+                    </h:commandButton>                   
+
+                    <h:commandLink actionListener="#{pmController.getAllNewMessageForPM()}" action="messageForPM.xhtml?faces-redirect=true">
+                        <div class="countMessages">#{msg.pm_new_messages} 
+                            <span style="color:#ff0000"> #{pmController.countMessageForPM()}</span>
+                        </div>
+                    </h:commandLink>
+
+                </h:form>
+
+                <h:form rendered="#{user.getRoleByLogin() eq 'Employee' and user.getQulificationByLogin() ne 'Project Manager'}">
+
+                    #{employeeController.setUser(user)}
+                    <h:commandButton action="#{employeeController.getAllTasksFromDB()}" value="#{msg.empl_show_list_all_tasks}" styleClass="search_button2">    
+                        <f:ajax event="click" listener="#{employeeController.setCountTasksSwitch(false)}" execute="@this" render=":emplForm"/>
+                    </h:commandButton>   
+
+                    <h:commandButton action="#{employeeController.getAllNewTasksFromDB()}" value="#{msg.empl_show_list_new_tasks}" styleClass="search_button2">    
+                        <f:ajax event="click" listener="#{employeeController.setCountTasksSwitch(true)}" execute="@this" render=":emplForm"/>
+                    </h:commandButton> 
+
+
+                </h:form>
+
+            </div>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

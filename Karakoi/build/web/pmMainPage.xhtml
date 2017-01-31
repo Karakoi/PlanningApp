@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <h:head> 
+         <h:outputStylesheet library="css" name="style_main.css"  />
+    </h:head>
+
+    <h:body>
+        <ui:composition>
+            <ui:composition template="/templates/library_template.xhtml">
+
+                <ui:define name="content">                   
+                    <h:panelGroup class="pmCreate_div">  
+                        #{pmController.setCurrentProjectID(request.getParameter("projectID"))}                        
+
+                        <h:form >                             
+                            <h:commandButton  id="createPhaseBut" action="createPhase.xhtml?faces-redirect=true" value="#{msg.pm_butt_create_phase}" class="search_button">
+                                <f:ajax event="click" listener="#{pmController.getAllPhasesFromDB()}" render=":allPhasesForm :content_div2"/>
+                            </h:commandButton>
+
+                            <h:commandButton action="createTask.xhtml?faces-redirect=true" value="#{msg.pm_butt_create_task}" class="search_button">  
+                                <f:ajax event="click" listener="#{pmController.getAllPhasesFromDB()}" render=":allPhasesForm2 :content_div2"/>
+                                <f:ajax delay="1000" event="click" render=":qualificationMenu"/>
+                            </h:commandButton>
+
+                            <h:commandButton action="manageProject.xhtml?faces-redirect=true" value="#{msg.pm_butt_manage_project}" class="search_button">
+                                <f:ajax delay="500" event="click" listener="#{pmController.getAllTasksForCurProjectFromDB()}" render=":taskList :beforeTaskList :taskList2"/>
+                                <f:ajax delay="1000" event="click" listener="#{pmController.getAllRelTBTFromDB()}" render=":listBox1"/>
+                                <f:ajax delay="1500"  event="click" listener="#{pmController.getAllEmployeesFromDB()}" render=":emplList"/>
+                                <f:ajax delay="2000" event="click" listener="#{pmController.getAllRelTaskEmployeeFromDB()}" render=":listBox2"/>
+
+                            </h:commandButton> 
+
+                            <h:commandButton action="manageTasks.xhtml?faces-redirect=true" value="#{msg.pm_butt_manage_tasks}" class="search_button">
+                                <f:ajax delay="1500" event="click" listener="#{pmController.getAllTasksWithBeforeTasks()}" render=":content_div3"/>
+                            </h:commandButton> 
+
+
+                        </h:form>
+                        <div class="pmCreateAll_div"></div>
+                    </h:panelGroup>   
+
+
+                </ui:define>
+
+            </ui:composition>
+        </ui:composition>
+    </h:body>
+
+</html>
+
+

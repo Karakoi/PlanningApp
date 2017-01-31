@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <h:head>        
+        <h:outputStylesheet library="css" name="style_main.css"  />
+    </h:head>
+    <h:body>
+        <ui:composition>
+
+            <h:form id="consumerProjectForm" rendered="#{user.getRoleByLogin() eq 'Consumer'}">              
+                #{consumerController.setUser(user)}
+                <ui:repeat id="consumerProjectList" value="#{consumerController.currentProjectList}" var="g" >
+                    <div >            
+                        <h:outputLink value="consumerMainPage.xhtml?faces-redirect=true" class="text">
+                            <table class="table_projectList" >
+                                <tr class="tr_projectList">
+                                     <f:param name="enquireID" value="#{g.enquireID}"/> 
+                                    <td width="20">#{g.enquireID}</td>                                    
+                                    <td width="50">#{g.status}</td>
+                                </tr>
+                            </table>
+                        </h:outputLink>
+                    </div>                     
+                </ui:repeat>
+            </h:form>
+
+            <h:form id="adminProjectForm" rendered="#{user.getRoleByLogin() eq 'Administrator'}"> 
+                #{adminController.setUser(user)}
+                <div id="countEnq">
+                    <h4 class="countNum">#{msg.admin_left_menu_count_enquire}:<span style="color:#ff0000"> #{adminController.countNewEnquires()}</span> </h4>
+                </div>
+
+                <ui:repeat id="adminProjectList" value="#{adminController.allEnquires}" var="l" >
+                    <div >            
+                        <h:outputLink value="createProject.xhtml" class="text">
+                            <table class="table_projectList">
+                                <tr class="tr_projectList">
+                                    <td width="15">                                         
+                                        <f:param name="enquireID" value="#{l.enquireID}"/>                                       
+                                        #{l.enquireID}
+                                    </td>        
+                                    <td width="80">Consumer:#{l.consumerId}</td>
+                                    <td width="30">#{l.status}</td>
+                                </tr>
+                            </table>
+                        </h:outputLink>
+                    </div>                     
+                </ui:repeat>
+            </h:form>
+            <!--'Project Manager'-->
+            <h:form id="pmForm" rendered="#{(user.getRoleByLogin() eq 'Employee') and (user.getQulificationByLogin() eq 'Project Manager')}"> 
+                #{pmController.setUser(user)}
+                <div id="countEnq">                    
+                    <h4 class="countNum">#{msg.pm_left_menu_count_project}:<span style="color:#ff0000"> #{pmController.countProjects()}</span> </h4>
+                </div>
+
+                <ui:repeat id="pmProjectList" value="#{pmController.getAllProjects().entrySet()}" var="p" >
+                    <div >            
+                        <h:outputLink value="pmMainPage.xhtml?faces-redirect=true" class="text" >                           
+                            <table class="table_projectList">
+                                <tr class="tr_projectList">
+                                    <td width="30">                                         
+                                        <f:param name="projectID" value="#{p.value}"/>
+                                        ID: #{p.key.projectID}
+                                    </td>                                    
+                                    <td width="100">Name: #{p.key.projectName}</td>                                    
+                                </tr>
+                            </table>                               
+                        </h:outputLink>
+                    </div>                     
+                </ui:repeat>
+            </h:form>
+
+            <h:form id="emplForm" rendered="#{(user.getRoleByLogin() eq 'Employee') and (user.getQulificationByLogin() ne 'Project Manager')}"> 
+                #{employeeController.setUser(user)}
+                <h:panelGroup rendered="#{employeeController.countTasksSwitch}">
+                    <div id="countEnq">
+                        <h4 class="countNum">#{msg.empl_left_menu_count_new_tasks}:<span style="color:#ff0000"> #{employeeController.countNewTasks()}</span> </h4>
+                    </div>
+
+                    <ui:repeat id="emplTasksList" value="#{employeeController.allNewTasks}" var="t" >
+                        <div >            
+                            <h:outputLink value="emplMainPage.xhtml?faces-redirect=true" class="text">                           
+                                <table class="table_projectList">
+                                    <tr class="tr_projectList">
+                                        <td width="20">                                         
+                                            <f:param name="taskID" value="#{t.taskId}"/>                                        
+                                            #{t.taskId}
+                                        </td>
+                                        <td width="50">#{t.taskName}</td> 
+                                        <td width="30">#{t.taskProgress}%</td> 
+                                        <td width="60">#{t.status}</td> 
+                                    </tr>
+                                </table>                               
+                            </h:outputLink>
+                        </div>                     
+                    </ui:repeat>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not employeeController.countTasksSwitch}">
+                    <div id="countEnq2">
+                        <h4 class="countNum">#{msg.empl_left_menu_count_all_tasks}:<span style="color:#ff0000"> #{employeeController.countAllTasks()}</span> </h4>
+                    </div>
+
+                    <ui:repeat id="emplTasksList2" value="#{employeeController.allTasks}" var="t" >
+                        <div >            
+                            <h:outputLink value="emplMainPage.xhtml?faces-redirect=true" class="text">                           
+                                <table class="table_projectList">
+                                    <tr class="tr_projectList">
+                                        <td width="20">                                         
+                                            <f:param name="taskID" value="#{t.taskId}"/>                                        
+                                            #{t.taskId}
+                                        </td>
+                                        <td width="50">#{t.taskName}</td> 
+                                        <td width="30">#{t.taskProgress}%</td> 
+                                        <td width="60">#{t.status}</td> 
+                                    </tr>
+                                </table>                               
+                            </h:outputLink>
+                        </div>                     
+                    </ui:repeat>
+                </h:panelGroup>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>
+

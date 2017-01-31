@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rish="http://richfaces.org/rich">
+
+
+    <h:head> 
+        <h:outputStylesheet library="css" name="style_main.css"  />
+    </h:head>
+
+    <h:body>
+        <ui:composition>
+            <ui:composition template="/templates/library_template.xhtml">
+
+                <ui:define name="content">
+                    #{reportController.setEnquireID(request.getParameter("enquireID"))}
+                    <div class="empl_div">                      
+
+                        <div class="empl_div_2">
+                            <h:form>                               
+                                <div style="margin-left: 50px;">
+                                    Generate PDF Report
+                                    <h:outputLink styleClass="save_link" value="#{request.contextPath}/PdfContent" target="_blank"> 
+                                        <h:graphicImage library="images" name="download1.png" style="width: 150px;"/>
+                                        <f:param name="enquireID" value="#{reportController.enquireID}"/>
+                                    </h:outputLink> 
+                                </div>
+                                <div style="margin-left: 50px;">
+                                    Generate Excel Report
+                                    <h:outputLink styleClass="save_link" value="#{request.contextPath}/PdfContent" target="_blank" disabled="true"> 
+                                        <h:graphicImage library="images" name="download1.png" style="width: 150px;"/>
+                                        <f:param name="enquireID" value="#{reportController.enquireID}"/>
+                                    </h:outputLink> 
+                                </div>
+                                <div style="margin-left: 50px;">
+                                    Show Gannt Diagram
+                                    <h:outputLink styleClass="save_link" value="#{request.contextPath}/PdfContent" target="_blank" disabled="true"> 
+                                        <h:graphicImage library="images" name="download1.png" style="width: 150px;"/>
+                                        <f:param name="enquireID" value="#{reportController.enquireID}"/>
+                                    </h:outputLink> 
+                                </div>
+                            </h:form>
+                        </div>
+
+                    </div>
+                </ui:define>
+
+            </ui:composition>
+        </ui:composition>
+    </h:body>
+
+</html>
+
+

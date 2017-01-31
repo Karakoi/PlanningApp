@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="manageProject.xhtml" x="558" y="-293" zoom="true"/>
+        <Node id="createEmployee.xhtml" x="510" y="198" zoom="true"/>
+        <Node id="registration.xhtml" x="285" y="245" zoom="true"/>
+        <Node id="createProject.xhtml" x="-146" y="-90" zoom="true"/>
+        <Node id="templates/header.xhtml" x="900" y="29" zoom="true"/>
+        <Node id="index.xhtml" x="225" y="369" zoom="true"/>
+        <Node id="templates/content.xhtml" x="873" y="-89" zoom="true"/>
+        <Node id="createCompany.xhtml" x="50" y="-70" zoom="true"/>
+        <Node id="templates/pmButtons.xhtml" x="803" y="67" zoom="true"/>
+        <Node id="templates/locales.xhtml" x="737" y="223" zoom="true"/>
+        <Node id="createTask.xhtml" x="332" y="-342" zoom="true"/>
+        <Node id="messageForPM.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="main.xhtml" x="18" y="98" zoom="true"/>
+        <Node id="templates/library_template.xhtml" x="882" y="-8" zoom="true"/>
+        <Node id="createPhase.xhtml" x="85" y="-308" zoom="true"/>
+        <Node id="pmMainPage.xhtml" x="340" y="-172" zoom="true"/>
+        <Node id="login.xhtml" x="58" y="318" zoom="true"/>
+        <Node id="templates/left_menu.xhtml" x="875" y="-146" zoom="true"/>
+        <Node id="manageTasks.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="createEnquire.xhtml" x="554" y="-8" zoom="true"/>
+        <Node id="emplMainPage.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="templates/footer.xhtml" x="880" y="-49" zoom="true"/>
+        <Node id="pages/content.xhtml" x="382" y="-53" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

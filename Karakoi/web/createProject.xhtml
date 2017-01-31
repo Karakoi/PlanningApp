@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rish="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <h:head>  
+        <h:outputStylesheet library="css" name="style_main.css"  />
+    </h:head>
+
+    <h:body>
+        <ui:composition template="/templates/library_template.xhtml">
+
+            <ui:define name="content">
+                <div align="center" >
+                    #{adminController.setCurrentSelectedEnquire(request.getParameter("enquireID"))}
+                    <h:panelGroup class="adminCreate_div" layout="block">        
+                        <h:form class="adminCreateEmpl_div">
+                            <div class="cancelDiv"> 
+                                <h:outputLink  value="main.xhtml" ></h:outputLink>
+                            </div>
+
+                            <table >
+                                
+                                <tr>
+                                    <td> Опис заявки:</td>
+                                   <td>
+                                       <h:outputText id="enqDiscr" value="#{adminController.getCurrEnquireDiscription()}" >                                                                            
+                                        </h:outputText>                                        
+                                    </td> 
+                                </tr>
+                                
+                                <tr>
+                                    <td> Назва проекту:</td>
+                                    <td>
+                                        <h:inputText id="projectName" value="#{adminController.getProject().projectName}" required="true" requiredMessage="projectName!!!">
+                                            <f:ajax event="change" render="pjName"/>
+                                        </h:inputText>
+                                        <td class="td_style">
+                                            <h:message id="pjName" for="projectName" class="error"/>
+                                        </td>
+                                    </td>                
+                                </tr>
+
+                                <tr>
+                                    <td> Компанія-проектувальник</td>
+                                    <td>
+                                        <h:selectOneMenu value="#{adminController.currentCompany}" valueChangeListener="#{adminController.companiesControllerChanged}">
+                                            <f:selectItems value="#{adminController.allCompanies.entrySet()}" var="c"
+                                                           itemLabel="#{c.key.name} - Com.ID: #{c.value}" itemValue="#{c.value}"/>
+                                            <f:ajax event="change" render="@this"/>
+                                        </h:selectOneMenu>
+                                    </td>              
+                                </tr>                                                                
+
+                                <tr>
+                                    <td> Проектний менеджер:</td>
+                                    <td>
+                                        <h:selectOneMenu value="#{adminController.currentProjectManager}" valueChangeListener="#{adminController.projectManagersControllerChanged}">
+                                            <f:selectItems value="#{adminController.allProjectManagers.entrySet()}" var="pm"
+                                                           itemLabel="pm: #{pm.key.lastName}, Com.: #{pm.key.companyID}" itemValue="#{pm.value}"/>
+                                            <f:ajax event="change" render="@this"/>
+                                        </h:selectOneMenu>
+                                    </td>              
+                                </tr>  
+
+                                <tr>
+                                    <td> Опис проекту:</td>
+                                    <td>
+                                        <h:inputTextarea cols="90" rows="5" id="projectDiscr" value="#{adminController.getProject().description}" required="true" requiredMessage="projectDiscr!!!" >
+                                            <f:ajax event="change" render="pjD"/>                                       
+                                        </h:inputTextarea>
+                                        <td >
+                                            <h:message id="pjD" for="projectDiscr" class="error"/>
+                                        </td>
+                                    </td>              
+                                </tr> 
+
+                                <tr>
+                                    <td> Дата початку:</td>
+                                    <td>
+                                        <rish:calendar value="#{adminController.project.startDate}" datePattern="dd/MMM/yyyy" locale="en/US">
+                                        </rish:calendar>
+                                    </td>                
+                                </tr>
+
+                                <tr>
+                                    <td> Дата кінцева:</td>
+                                    <td>
+                                        <rish:calendar value="#{adminController.project.endDate}" datePattern="dd/MMM/yyyy" locale="en">
+
+                                        </rish:calendar>
+                                    </td>                
+                                </tr>
+
+                                <tr>
+                                    <td >
+                                        <h:commandButton action="#{adminController.createProject()}" value="#{msg.create_butt}" styleClass="search_button"/>                                                      
+                                    </td>   
+                                </tr> 
+
+                            </table>
+
+                        </h:form>
+                    </h:panelGroup>
+
+                </div>
+
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+
+</html>
+
+

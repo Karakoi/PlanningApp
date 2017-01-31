@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <f:view locale="#{localeChanger.currentLocale}">
+        <h:head>
+            <title>Home Page</title>
+            <h:outputStylesheet library="css" name="style_index.css"  />
+        </h:head>
+
+        <h:body>
+
+            <div id="mainForm" class="main"> 
+
+                <!--<ui:include src="/templates/locales.xhtml"/>-->
+
+                <h:form styleClass="index_form">
+                    <div class="content">
+
+                        <div class="mainTitle" >
+                            <h:outputText value="#{msg.index_title}" />            
+                        </div> 
+
+                        <p ><h:graphicImage width="450" library="images" name="java_index.jpg" /></p>          
+                    </div>
+
+                    <div class="title">
+                        <h:outputText value="#{msg.index_question}" />            
+                    </div>        
+                    <br/>
+
+                    <div class="link">            
+                        <h:outputLink value="login.xhtml" class="text">#{msg.index_N_Answer}</h:outputLink>
+                    </div> 
+
+                    <p></p>          
+
+                    <div class="link">
+                        <h:outputLink value="registration.xhtml" class="text">#{msg.index_P_Answer}</h:outputLink>
+                    </div>            
+
+                    <div>
+                        <br/>
+                        <h:outputLabel value="#{msg.index_developer}" />
+                    </div>
+
+                </h:form>
+
+            </div>           
+        </h:body>
+    </f:view> 
+
+</html>

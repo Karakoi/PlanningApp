@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <f:view locale="#{localeChanger.getCurrentLocale()}">
+
+        <h:head>      
+            <title>Welcome to registration page</title>
+            <h:outputStylesheet library="css" name="style_registration.css"  />       
+        </h:head>
+
+        <h:body>
+
+            <div class="main2">
+                <ui:include src="/templates/locales.xhtml"/>
+
+                <div >
+                    <p class="title"><h:graphicImage width="500" library="images" name="registration.jpg" /></p>
+                    <p class="title"><h:outputText id="registration_title" value="#{msg.registration_title}"/></p>
+                </div>
+
+                <div align="center">
+                    <h:panelGroup styleClass="registration_div" id="registration_div" layout="block">        
+                        <h:form styleClass="registration_form" id="registration_form">
+                            <div class="registration_form2">
+                                <div class="cancel"> 
+                                    <h:outputLink  value="login.xhtml?faces-redirect=true" />                               
+                                </div>
+
+                                <table width="500">
+
+                                    <tr align="left">
+                                        <td width="100" align="left"><span style="color:red;">*</span> #{msg.input_firstName}</td>
+                                        <td width="200">
+                                            <h:inputText id="firstName" value="#{user.firstName}" required="true" requiredMessage="#{msg.error_firstName}">
+                                                <f:ajax event="change" render="fn"/>
+                                            </h:inputText>
+                                            <td class="td_style">
+                                                <h:message id="fn" for="firstName" styleClass="error"/>
+                                            </td>
+                                        </td> 
+
+                                    </tr>            
+
+                                    <tr align="left">
+                                        <td width="100" align="left"><span style="color:red;">*</span> #{msg.input_lastName}</td>
+                                        <td width="200">
+                                            <h:inputText id="lastName" value="#{user.lastName}" required="true" requiredMessage="#{msg.error_lastName}">
+                                                <f:ajax render="ln"/>
+                                            </h:inputText>
+                                            <td class="td_style">
+                                                <h:message id="ln" for="lastName" styleClass="error"/>
+                                            </td>
+                                        </td>              
+                                    </tr>
+
+                                    <tr align="left">
+                                        <td width="100" align="left"><span style="color:red;">*</span> #{msg.input_age}</td>
+                                        <td width="200">
+                                            <h:inputText id="age" value="#{user.age}" required="true" requiredMessage="#{msg.error_age}">
+                                                <f:ajax render="a"/>
+                                            </h:inputText>
+                                            <td class="td_style">
+                                                <h:message id="a" for="age" styleClass="error"/>
+                                            </td>
+                                        </td>              
+                                    </tr>
+
+                                    <tr align="left">
+                                        <td width="100" align="left"><span style="color:red;">*</span> #{msg.input_email}</td>
+                                        <td width="200">
+                                            <h:inputText id="email" value="#{user.email}" required="true" requiredMessage="#{msg.error_email}">
+                                                <f:ajax render="e"/>
+                                            </h:inputText>
+                                            <td class="td_style">
+                                                <h:message id="e" for="email" styleClass="error"/>
+                                            </td>
+                                        </td>              
+                                    </tr>
+
+                                    <tr align="left">
+                                        <td width="100" align="left"><span style="color:red;">*</span> #{msg.input_address}</td>
+                                        <td width="200">
+                                            <h:inputText id="address" value="#{user.address}" required="true" requiredMessage="#{msg.error_address}">
+                                                <f:ajax render="adr"/>
+                                            </h:inputText>
+                                            <td class="td_style">
+                                                <h:message id="adr" for="address" styleClass="error"/>
+                                            </td>
+                                        </td>              
+                                    </tr>
+
+                                    <tr align="left">
+                                        <td width="100" align="left"><span style="color:red;">*</span> #{msg.input_phone}</td>
+                                        <td width="200">
+                                            <h:inputText id="phone" value="#{user.phone}" required="true" requiredMessage="#{msg.error_phone}">
+                                                <f:ajax render="ph"/>
+                                            </h:inputText>
+                                            <td class="td_style">
+                                                <h:message id="ph" for="phone" styleClass="error"/>
+                                            </td>
+                                        </td>              
+                                    </tr>
+
+                                    <tr align="left">
+                                        <td width="100" align="left"><span style="color:red;">*</span> #{msg.input_login}</td>
+                                        <td width="200">
+                                            <h:inputText id="login" value="#{user.login}" required="true" requiredMessage="#{msg.error_login}">
+                                                <f:ajax render="l"/>
+                                            </h:inputText>
+                                            <td class="td_style">
+                                                <h:message id="l" for="login" styleClass="error"/>
+                                            </td>
+                                        </td>              
+                                    </tr>
+
+                                    <tr align="left">
+                                        <td width="100" align="left"><span style="color:red;">*</span> #{msg.input_password}</td>
+                                        <td width="200">
+                                            <h:inputSecret  id="password" value="#{user.password}" required="true" redisplay="true" requiredMessage="#{msg.error_password}">
+                                                <f:ajax render="pass"/>
+                                            </h:inputSecret>
+                                            <td class="td_style">
+                                                <h:message id="pass" for="password" styleClass="error"/>
+                                            </td>
+                                        </td>
+                                    </tr>
+
+                                    <tr align="left">                  
+                                        <td>
+                                            <h:commandButton value="#{msg.cons_butt_register}" action="#{consumerController.registration()}" styleClass="registration_button"/>
+                                        </td>    
+                                    </tr> 
+                                </table>
+                            </div>
+                        </h:form>
+                    </h:panelGroup>
+                </div>  
+
+            </div>
+
+        </h:body>
+
+    </f:view>
+</html>
